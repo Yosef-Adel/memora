@@ -1,19 +1,33 @@
 import React, { useState } from "react";
 import {
   View,
-  Text,
   TextInput,
   TouchableOpacity,
   StyleSheet,
   Alert,
+  KeyboardAvoidingView,
+  Platform,
+  ScrollView,
 } from "react-native";
 import { router } from "expo-router";
 import { useAuth } from "@/contexts/AuthContext";
+import { ThemedText } from "@/components/ThemedText";
+import { ThemedView } from "@/components/ThemedView";
+import { useThemeColor } from "@/hooks/useThemeColor";
+import { Colors } from "@/constants/Colors";
 
 export default function LoginScreen() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const { login } = useAuth();
+
+  // Get themed colors
+  const textColor = useThemeColor({}, "text");
+  const backgroundColor = useThemeColor({}, "background");
+  const cardColor = useThemeColor({}, "card");
+  const borderColor = useThemeColor({}, "border");
+  const primaryColor = useThemeColor({}, "primary");
+  const placeholderColor = useThemeColor({}, "muted");
 
   const handleLogin = async () => {
     if (!email || !password) {
@@ -32,48 +46,84 @@ export default function LoginScreen() {
   };
 
   return (
-    <View style={styles.container}>
-      <View style={styles.headerContainer}>
-        <Text style={styles.headerTitle}>Memora</Text>
-        <Text style={styles.headerSubtitle}>Sign in to continue</Text>
-      </View>
+    <KeyboardAvoidingView
+      behavior={Platform.OS === "ios" ? "padding" : "height"}
+      style={{ flex: 1 }}
+    >
+      <ScrollView contentContainerStyle={{ flexGrow: 1 }}>
+        <ThemedView style={styles.container}>
+          <View style={styles.headerContainer}>
+            <ThemedText type="title" style={styles.headerTitle}>
+              Memora
+            </ThemedText>
+            <ThemedText type="subtitle" style={styles.headerSubtitle}>
+              Sign in to continue
+            </ThemedText>
+          </View>
 
-      <View style={styles.formContainer}>
-        <TextInput
-          style={styles.input}
-          placeholder="Email"
-          value={email}
-          onChangeText={setEmail}
-          keyboardType="email-address"
-          autoCapitalize="none"
-        />
-        <TextInput
-          style={styles.input}
-          placeholder="Password"
-          value={password}
-          onChangeText={setPassword}
-          secureTextEntry
-        />
+          <View style={styles.formContainer}>
+            <TextInput
+              style={[
+                styles.input,
+                {
+                  backgroundColor: cardColor,
+                  borderColor: borderColor,
+                  color: textColor,
+                },
+              ]}
+              placeholder="Email"
+              placeholderTextColor={placeholderColor}
+              value={email}
+              onChangeText={setEmail}
+              keyboardType="email-address"
+              autoCapitalize="none"
+            />
+            <TextInput
+              style={[
+                styles.input,
+                {
+                  backgroundColor: cardColor,
+                  borderColor: borderColor,
+                  color: textColor,
+                },
+              ]}
+              placeholder="Password"
+              placeholderTextColor={placeholderColor}
+              value={password}
+              onChangeText={setPassword}
+              secureTextEntry
+            />
 
-        <TouchableOpacity
-          style={styles.forgotPassword}
-          onPress={() => Alert.alert("Info", "Feature coming soon!")}
-        >
-          <Text style={styles.forgotPasswordText}>Forgot Password?</Text>
-        </TouchableOpacity>
+            <TouchableOpacity
+              style={styles.forgotPassword}
+              onPress={() => Alert.alert("Info", "Feature coming soon!")}
+            >
+              <ThemedText type="link" style={styles.forgotPasswordText}>
+                Forgot Password?
+              </ThemedText>
+            </TouchableOpacity>
 
-        <TouchableOpacity style={styles.loginButton} onPress={handleLogin}>
-          <Text style={styles.loginButtonText}>Login</Text>
-        </TouchableOpacity>
-      </View>
+            <TouchableOpacity
+              style={[styles.loginButton, { backgroundColor: primaryColor }]}
+              onPress={handleLogin}
+            >
+              <ThemedText style={styles.loginButtonText}>Login</ThemedText>
+            </TouchableOpacity>
+          </View>
 
-      <View style={styles.footer}>
-        <Text style={styles.footerText}>Don't have an account? </Text>
-        <TouchableOpacity onPress={() => router.push("/auth/signup")}>
-          <Text style={styles.signupText}>Sign up</Text>
-        </TouchableOpacity>
-      </View>
-    </View>
+          <View style={styles.footer}>
+            <ThemedText style={styles.footerText}>
+              Don't have an account?{" "}
+            </ThemedText>
+            <TouchableOpacity onPress={() => router.push("/auth/signup")}>
+              <ThemedText type="link" style={styles.signupText}>
+                Sign up
+              </ThemedText>
+            </TouchableOpacity>
+          </View>
+        </ThemedView>
+      </ScrollView>
+    </KeyboardAvoidingView>
   );
 }
 
@@ -81,7 +131,6 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     padding: 20,
-    backgroundColor: "#fff",
   },
   headerContainer: {
     marginTop: 60,
@@ -89,14 +138,12 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
   headerTitle: {
-    fontSize: 30,
+    fontSize: 32,
     fontWeight: "bold",
-    color: "#4A3780",
     marginBottom: 10,
   },
   headerSubtitle: {
     fontSize: 16,
-    color: "#666",
   },
   formContainer: {
     marginBottom: 30,
@@ -104,23 +151,19 @@ const styles = StyleSheet.create({
   input: {
     height: 55,
     borderWidth: 1,
-    borderColor: "#ddd",
     borderRadius: 8,
     marginBottom: 15,
     paddingHorizontal: 15,
     fontSize: 16,
-    backgroundColor: "#f9f9f9",
   },
   forgotPassword: {
     alignSelf: "flex-end",
     marginBottom: 20,
   },
   forgotPasswordText: {
-    color: "#4A3780",
     fontSize: 14,
   },
   loginButton: {
-    backgroundColor: "#4A3780",
     borderRadius: 8,
     height: 55,
     alignItems: "center",
@@ -139,11 +182,9 @@ const styles = StyleSheet.create({
   },
   footerText: {
     fontSize: 14,
-    color: "#666",
   },
   signupText: {
     fontSize: 14,
-    color: "#4A3780",
     fontWeight: "bold",
   },
 });

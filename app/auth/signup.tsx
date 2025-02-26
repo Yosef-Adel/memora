@@ -1,14 +1,19 @@
 import React, { useState } from "react";
 import {
   View,
-  Text,
   TextInput,
   TouchableOpacity,
   StyleSheet,
   Alert,
+  KeyboardAvoidingView,
+  Platform,
+  ScrollView,
 } from "react-native";
 import { router } from "expo-router";
 import { useAuth } from "@/contexts/AuthContext";
+import { ThemedText } from "@/components/ThemedText";
+import { ThemedView } from "@/components/ThemedView";
+import { useThemeColor } from "@/hooks/useThemeColor";
 
 export default function SignupScreen() {
   const [name, setName] = useState("");
@@ -16,6 +21,14 @@ export default function SignupScreen() {
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const { register } = useAuth();
+
+  // Get themed colors
+  const textColor = useThemeColor({}, "text");
+  const backgroundColor = useThemeColor({}, "background");
+  const cardColor = useThemeColor({}, "card");
+  const borderColor = useThemeColor({}, "border");
+  const primaryColor = useThemeColor({}, "primary");
+  const placeholderColor = useThemeColor({}, "muted");
 
   const handleSignup = async () => {
     // Basic validation
@@ -40,55 +53,107 @@ export default function SignupScreen() {
   };
 
   return (
-    <View style={styles.container}>
-      <View style={styles.headerContainer}>
-        <Text style={styles.headerTitle}>Create Account</Text>
-        <Text style={styles.headerSubtitle}>Join Memora today</Text>
-      </View>
+    <KeyboardAvoidingView
+      behavior={Platform.OS === "ios" ? "padding" : "height"}
+      style={{ flex: 1 }}
+    >
+      <ScrollView contentContainerStyle={{ flexGrow: 1 }}>
+        <ThemedView style={styles.container}>
+          <View style={styles.headerContainer}>
+            <ThemedText type="title" style={styles.headerTitle}>
+              Create Account
+            </ThemedText>
+            <ThemedText type="subtitle" style={styles.headerSubtitle}>
+              Join Memora today
+            </ThemedText>
+          </View>
 
-      <View style={styles.formContainer}>
-        <TextInput
-          style={styles.input}
-          placeholder="Full Name"
-          value={name}
-          onChangeText={setName}
-          autoCapitalize="words"
-        />
-        <TextInput
-          style={styles.input}
-          placeholder="Email"
-          value={email}
-          onChangeText={setEmail}
-          keyboardType="email-address"
-          autoCapitalize="none"
-        />
-        <TextInput
-          style={styles.input}
-          placeholder="Password"
-          value={password}
-          onChangeText={setPassword}
-          secureTextEntry
-        />
-        <TextInput
-          style={styles.input}
-          placeholder="Confirm Password"
-          value={confirmPassword}
-          onChangeText={setConfirmPassword}
-          secureTextEntry
-        />
+          <View style={styles.formContainer}>
+            <TextInput
+              style={[
+                styles.input,
+                {
+                  backgroundColor: cardColor,
+                  borderColor: borderColor,
+                  color: textColor,
+                },
+              ]}
+              placeholder="Full Name"
+              placeholderTextColor={placeholderColor}
+              value={name}
+              onChangeText={setName}
+              autoCapitalize="words"
+            />
+            <TextInput
+              style={[
+                styles.input,
+                {
+                  backgroundColor: cardColor,
+                  borderColor: borderColor,
+                  color: textColor,
+                },
+              ]}
+              placeholder="Email"
+              placeholderTextColor={placeholderColor}
+              value={email}
+              onChangeText={setEmail}
+              keyboardType="email-address"
+              autoCapitalize="none"
+            />
+            <TextInput
+              style={[
+                styles.input,
+                {
+                  backgroundColor: cardColor,
+                  borderColor: borderColor,
+                  color: textColor,
+                },
+              ]}
+              placeholder="Password"
+              placeholderTextColor={placeholderColor}
+              value={password}
+              onChangeText={setPassword}
+              secureTextEntry
+            />
+            <TextInput
+              style={[
+                styles.input,
+                {
+                  backgroundColor: cardColor,
+                  borderColor: borderColor,
+                  color: textColor,
+                },
+              ]}
+              placeholder="Confirm Password"
+              placeholderTextColor={placeholderColor}
+              value={confirmPassword}
+              onChangeText={setConfirmPassword}
+              secureTextEntry
+            />
 
-        <TouchableOpacity style={styles.signupButton} onPress={handleSignup}>
-          <Text style={styles.signupButtonText}>Create Account</Text>
-        </TouchableOpacity>
-      </View>
+            <TouchableOpacity
+              style={[styles.signupButton, { backgroundColor: primaryColor }]}
+              onPress={handleSignup}
+            >
+              <ThemedText style={styles.signupButtonText}>
+                Create Account
+              </ThemedText>
+            </TouchableOpacity>
+          </View>
 
-      <View style={styles.footer}>
-        <Text style={styles.footerText}>Already have an account? </Text>
-        <TouchableOpacity onPress={() => router.push("/auth/login")}>
-          <Text style={styles.loginText}>Log in</Text>
-        </TouchableOpacity>
-      </View>
-    </View>
+          <View style={styles.footer}>
+            <ThemedText style={styles.footerText}>
+              Already have an account?{" "}
+            </ThemedText>
+            <TouchableOpacity onPress={() => router.push("/auth/login")}>
+              <ThemedText type="link" style={styles.loginText}>
+                Log in
+              </ThemedText>
+            </TouchableOpacity>
+          </View>
+        </ThemedView>
+      </ScrollView>
+    </KeyboardAvoidingView>
   );
 }
 
@@ -96,7 +161,6 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     padding: 20,
-    backgroundColor: "#fff",
   },
   headerContainer: {
     marginTop: 60,
@@ -104,14 +168,12 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
   headerTitle: {
-    fontSize: 30,
+    fontSize: 32,
     fontWeight: "bold",
-    color: "#4A3780",
     marginBottom: 10,
   },
   headerSubtitle: {
     fontSize: 16,
-    color: "#666",
   },
   formContainer: {
     marginBottom: 30,
@@ -119,15 +181,12 @@ const styles = StyleSheet.create({
   input: {
     height: 55,
     borderWidth: 1,
-    borderColor: "#ddd",
     borderRadius: 8,
     marginBottom: 15,
     paddingHorizontal: 15,
     fontSize: 16,
-    backgroundColor: "#f9f9f9",
   },
   signupButton: {
-    backgroundColor: "#4A3780",
     borderRadius: 8,
     height: 55,
     alignItems: "center",
@@ -146,11 +205,9 @@ const styles = StyleSheet.create({
   },
   footerText: {
     fontSize: 14,
-    color: "#666",
   },
   loginText: {
     fontSize: 14,
-    color: "#4A3780",
     fontWeight: "bold",
   },
 });

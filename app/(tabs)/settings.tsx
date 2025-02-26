@@ -1,5 +1,13 @@
 import React from "react";
-import { StyleSheet, View, TouchableOpacity, Alert } from "react-native";
+import {
+  StyleSheet,
+  View,
+  TouchableOpacity,
+  Alert,
+  useColorScheme,
+  Appearance,
+  Switch,
+} from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { useThemeColor } from "@/hooks/useThemeColor";
 import { Colors } from "@/constants/Colors";
@@ -9,14 +17,7 @@ import { Ionicons } from "@expo/vector-icons";
 
 export default function SettingsScreen() {
   const { user, logout } = useAuth();
-  const backgroundColor = useThemeColor(
-    { light: Colors.light.background, dark: Colors.dark.background },
-    "background"
-  );
-  const textColor = useThemeColor(
-    { light: Colors.light.text, dark: Colors.dark.text },
-    "text"
-  );
+
   const cardColor = useThemeColor(
     { light: Colors.light.card, dark: Colors.dark.card },
     "card"
@@ -31,6 +32,22 @@ export default function SettingsScreen() {
       { text: "Cancel", style: "cancel" },
       { text: "Logout", onPress: () => logout(), style: "destructive" },
     ]);
+  };
+  const colorScheme = useColorScheme();
+  const isDarkMode = colorScheme === "dark";
+
+  const backgroundColor = useThemeColor(
+    { light: Colors.light.background, dark: Colors.dark.background },
+    "background"
+  );
+  const textColor = useThemeColor(
+    { light: Colors.light.text, dark: Colors.dark.text },
+    "text"
+  );
+
+  const toggleTheme = () => {
+    // This will change the system theme preference
+    Appearance.setColorScheme(isDarkMode ? "light" : "dark");
   };
 
   return (
@@ -53,52 +70,20 @@ export default function SettingsScreen() {
       </View>
 
       {/* Settings options */}
-      <View style={styles.settingsSection}>
-        <TouchableOpacity
-          style={[styles.settingItem, { borderColor }]}
-          onPress={() => Alert.alert("Info", "Theme settings coming soon!")}
+      <View style={styles.settingRow}>
+        <ThemedText
+          type="default"
+          style={[styles.settingLabel, { color: textColor }]}
         >
-          <Ionicons name="color-palette-outline" size={22} color={textColor} />
-          <ThemedText style={styles.settingText}>Theme</ThemedText>
-          <Ionicons
-            name="chevron-forward"
-            size={22}
-            color={textColor}
-            style={styles.chevron}
-          />
-        </TouchableOpacity>
-
-        <TouchableOpacity
-          style={[styles.settingItem, { borderColor }]}
-          onPress={() =>
-            Alert.alert("Info", "Notification settings coming soon!")
-          }
-        >
-          <Ionicons name="notifications-outline" size={22} color={textColor} />
-          <ThemedText style={styles.settingText}>Notifications</ThemedText>
-          <Ionicons
-            name="chevron-forward"
-            size={22}
-            color={textColor}
-            style={styles.chevron}
-          />
-        </TouchableOpacity>
-
-        <TouchableOpacity
-          style={[styles.settingItem, { borderColor }]}
-          onPress={() => Alert.alert("Info", "Account settings coming soon!")}
-        >
-          <Ionicons name="person-outline" size={22} color={textColor} />
-          <ThemedText style={styles.settingText}>Account</ThemedText>
-          <Ionicons
-            name="chevron-forward"
-            size={22}
-            color={textColor}
-            style={styles.chevron}
-          />
-        </TouchableOpacity>
+          Dark Mode
+        </ThemedText>
+        <Switch
+          value={isDarkMode}
+          onValueChange={toggleTheme}
+          thumbColor={isDarkMode ? Colors.dark.primary : Colors.light.primary}
+          trackColor={{ false: Colors.light.muted, true: Colors.dark.muted }}
+        />
       </View>
-
       {/* Logout button */}
       <TouchableOpacity
         style={[styles.logoutButton, { borderColor }]}
@@ -159,5 +144,16 @@ const styles = StyleSheet.create({
     marginLeft: 16,
     fontSize: 16,
     color: "#FF3B30",
+  },
+  settingRow: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "center",
+    paddingVertical: 12,
+    borderBottomWidth: 1,
+    borderBottomColor: "#ccc",
+  },
+  settingLabel: {
+    fontSize: 18,
   },
 });

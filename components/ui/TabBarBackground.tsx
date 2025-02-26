@@ -20,7 +20,7 @@ export default function TabBarBackground({
           bottom: 0,
           left: 0,
           right: 0,
-          height: 50,
+          height: 60,
           borderTopWidth: 0.5,
           borderTopColor: Colors[colorScheme].border,
         }}
@@ -35,7 +35,7 @@ export default function TabBarBackground({
           bottom: 0,
           left: 0,
           right: 0,
-          height: 85,
+          height: 50,
           backgroundColor: Colors[colorScheme].background,
           borderTopWidth: 0.5,
           borderTopColor: Colors[colorScheme].border,
