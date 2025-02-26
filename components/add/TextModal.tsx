@@ -7,6 +7,7 @@ import {
   TouchableOpacity,
   StyleSheet,
   Dimensions,
+  TouchableWithoutFeedback,
 } from "react-native";
 
 interface TextModalProps {
@@ -49,80 +50,86 @@ const TextModal: React.FC<TextModalProps> = ({
       transparent={true}
       onRequestClose={onClose}
     >
-      <View style={styles.modalContainer}>
-        <View style={[styles.modalContent, { backgroundColor }]}>
-          <Text style={[styles.modalTitle, { color: textColor }]}>
-            Add Text Highlight
-          </Text>
-          <Text style={[styles.modalDescription, { color: mutedColor }]}>
-            Enter your highlight text and source information
-          </Text>
+      <TouchableWithoutFeedback onPress={onClose}>
+        <View style={styles.modalContainer}>
+          <TouchableWithoutFeedback onPress={(e) => e.stopPropagation()}>
+            <View style={[styles.modalContent, { backgroundColor }]}>
+              <Text style={[styles.modalTitle, { color: textColor }]}>
+                Add Text Highlight
+              </Text>
+              <Text style={[styles.modalDescription, { color: mutedColor }]}>
+                Enter your highlight text and source information
+              </Text>
 
-          <View style={styles.inputContainer}>
-            <Text style={[styles.label, { color: textColor }]}>Highlight</Text>
-            <TextInput
-              style={[
-                styles.input,
-                styles.textArea,
-                {
-                  borderColor,
-                  backgroundColor: cardColor,
-                  color: textColor,
-                },
-              ]}
-              multiline
-              numberOfLines={4}
-              placeholder="Enter your highlight text..."
-              placeholderTextColor={mutedColor}
-              value={highlight}
-              onChangeText={setHighlight}
-            />
-          </View>
+              <View style={styles.inputContainer}>
+                <Text style={[styles.label, { color: textColor }]}>
+                  Highlight
+                </Text>
+                <TextInput
+                  style={[
+                    styles.input,
+                    styles.textArea,
+                    {
+                      borderColor,
+                      backgroundColor: cardColor,
+                      color: textColor,
+                    },
+                  ]}
+                  multiline
+                  numberOfLines={4}
+                  placeholder="Enter your highlight text..."
+                  placeholderTextColor={mutedColor}
+                  value={highlight}
+                  onChangeText={setHighlight}
+                />
+              </View>
 
-          <View style={styles.inputContainer}>
-            <Text style={[styles.label, { color: textColor }]}>Source</Text>
-            <TextInput
-              style={[
-                styles.input,
-                {
-                  borderColor,
-                  backgroundColor: cardColor,
-                  color: textColor,
-                },
-              ]}
-              placeholder="Book or article title"
-              placeholderTextColor={mutedColor}
-              value={source}
-              onChangeText={setSource}
-            />
-          </View>
+              <View style={styles.inputContainer}>
+                <Text style={[styles.label, { color: textColor }]}>Source</Text>
+                <TextInput
+                  style={[
+                    styles.input,
+                    {
+                      borderColor,
+                      backgroundColor: cardColor,
+                      color: textColor,
+                    },
+                  ]}
+                  placeholder="Book or article title"
+                  placeholderTextColor={mutedColor}
+                  value={source}
+                  onChangeText={setSource}
+                />
+              </View>
 
-          <View style={styles.inputContainer}>
-            <Text style={[styles.label, { color: textColor }]}>Author</Text>
-            <TextInput
-              style={[
-                styles.input,
-                {
-                  borderColor,
-                  backgroundColor: cardColor,
-                  color: textColor,
-                },
-              ]}
-              placeholder="Author name"
-              placeholderTextColor={mutedColor}
-              value={author}
-              onChangeText={setAuthor}
-            />
-          </View>
+              <View style={styles.inputContainer}>
+                <Text style={[styles.label, { color: textColor }]}>Author</Text>
+                <TextInput
+                  style={[
+                    styles.input,
+                    {
+                      borderColor,
+                      backgroundColor: cardColor,
+                      color: textColor,
+                    },
+                  ]}
+                  placeholder="Author name"
+                  placeholderTextColor={mutedColor}
+                  value={author}
+                  onChangeText={setAuthor}
+                />
+              </View>
 
-          <TouchableOpacity
-            style={[styles.saveButton, { backgroundColor: primaryColor }]}
-            onPress={onClose}
-          >
-            <Text style={styles.saveButtonText}>Save Highlight</Text>
-          </TouchableOpacity>
+              <TouchableOpacity
+                style={[styles.saveButton, { backgroundColor: primaryColor }]}
+                onPress={onClose}
+              >
+                <Text style={styles.saveButtonText}>Save Highlight</Text>
+              </TouchableOpacity>
+            </View>
+          </TouchableWithoutFeedback>
         </View>
-      </View>
+      </TouchableWithoutFeedback>
     </Modal>
   );
 };

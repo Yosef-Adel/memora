@@ -4,6 +4,7 @@ import {
   Text,
   Modal,
   TouchableOpacity,
+  TouchableWithoutFeedback,
   StyleSheet,
   Dimensions,
 } from "react-native";
@@ -37,46 +38,50 @@ const ScanModal: React.FC<ScanModalProps> = ({
       transparent={true}
       onRequestClose={onClose}
     >
-      <View style={styles.modalContainer}>
-        <View style={[styles.modalContent, { backgroundColor }]}>
-          <Text style={[styles.modalTitle, { color: textColor }]}>
-            Scan Text
-          </Text>
-          <Text style={[styles.modalDescription, { color: mutedColor }]}>
-            Take a photo of the text you want to highlight
-          </Text>
+      <TouchableWithoutFeedback onPress={onClose}>
+        <View style={styles.modalContainer}>
+          <TouchableWithoutFeedback onPress={(e) => e.stopPropagation()}>
+            <View style={[styles.modalContent, { backgroundColor }]}>
+              <Text style={[styles.modalTitle, { color: textColor }]}>
+                Scan Text
+              </Text>
+              <Text style={[styles.modalDescription, { color: mutedColor }]}>
+                Take a photo of the text you want to highlight
+              </Text>
 
-          <View
-            style={[
-              styles.cameraPlaceholder,
-              { borderColor, backgroundColor: `${secondaryColor}10` },
-            ]}
-          >
-            <View
-              style={[
-                styles.cameraIcon,
-                { backgroundColor: `${secondaryColor}20` },
-              ]}
-            >
-              <Icon name="camera" size={32} color={secondaryColor} />
+              <View
+                style={[
+                  styles.cameraPlaceholder,
+                  { borderColor, backgroundColor: `${secondaryColor}10` },
+                ]}
+              >
+                <View
+                  style={[
+                    styles.cameraIcon,
+                    { backgroundColor: `${secondaryColor}20` },
+                  ]}
+                >
+                  <Icon name="camera" size={32} color={secondaryColor} />
+                </View>
+                <Text style={[styles.cameraText, { color: mutedColor }]}>
+                  Click to take a photo or drop an image here
+                </Text>
+              </View>
+
+              <TouchableOpacity
+                style={[
+                  styles.saveButton,
+                  styles.buttonDisabled,
+                  { backgroundColor: primaryColor },
+                ]}
+                disabled={true}
+              >
+                <Text style={styles.saveButtonText}>Coming Soon</Text>
+              </TouchableOpacity>
             </View>
-            <Text style={[styles.cameraText, { color: mutedColor }]}>
-              Click to take a photo or drop an image here
-            </Text>
-          </View>
-
-          <TouchableOpacity
-            style={[
-              styles.saveButton,
-              styles.buttonDisabled,
-              { backgroundColor: primaryColor },
-            ]}
-            disabled={true}
-          >
-            <Text style={styles.saveButtonText}>Coming Soon</Text>
-          </TouchableOpacity>
+          </TouchableWithoutFeedback>
         </View>
-      </View>
+      </TouchableWithoutFeedback>
     </Modal>
   );
 };
