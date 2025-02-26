@@ -1,10 +1,4 @@
-import React, {
-  createContext,
-  useState,
-  useContext,
-  useEffect,
-  ReactNode,
-} from "react";
+import React, { createContext, useState, useContext, useEffect } from "react";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { useRouter } from "expo-router";
 
@@ -37,6 +31,9 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   useEffect(() => {
     const loadUser = async () => {
       try {
+        // Add a slight delay to ensure navigation is ready
+        await new Promise((resolve) => setTimeout(resolve, 100));
+
         const storedUser = await AsyncStorage.getItem("user");
         if (storedUser) {
           setUser(JSON.parse(storedUser));
@@ -53,18 +50,14 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
 
   // Login function
   const login = async (email: string, password: string): Promise<boolean> => {
-    // In a real app, you would make an API call here
     try {
-      // Mock authentication (replace with actual API call)
       if (email && password) {
-        // Simulate successful login
         const mockUser = {
           id: "1",
           name: "Test User",
           email: email,
         };
 
-        // Store user info
         await AsyncStorage.setItem("user", JSON.stringify(mockUser));
         setUser(mockUser);
         return true;
@@ -82,18 +75,14 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     email: string,
     password: string
   ): Promise<boolean> => {
-    // In a real app, you would make an API call here
     try {
-      // Mock registration (replace with actual API call)
       if (name && email && password) {
-        // Simulate successful registration
         const mockUser = {
           id: Date.now().toString(),
           name,
           email,
         };
 
-        // Store user info
         await AsyncStorage.setItem("user", JSON.stringify(mockUser));
         setUser(mockUser);
         return true;
