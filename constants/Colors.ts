@@ -3,24 +3,39 @@
  * There are many other ways to style your app. For example, [Nativewind](https://www.nativewind.dev/), [Tamagui](https://tamagui.dev/), [unistyles](https://reactnativeunistyles.vercel.app), etc.
  */
 
-const tintColorLight = '#0a7ea4';
-const tintColorDark = '#fff';
+const tintColorLight = "#6D28D9"
+const tintColorDark = "#8B5CF6"
+
+/**
+ * Updated color palette using Material-inspired colors.
+ */
 
 export const Colors = {
   light: {
-    text: '#11181C',
-    background: '#fff',
-    tint: tintColorLight,
-    icon: '#687076',
-    tabIconDefault: '#687076',
-    tabIconSelected: tintColorLight,
+    icon: '#5F6368',
+    primary: '#2962FF',
+    secondary: '#FF6D00',
+    text: '#202124',
+    background: '#FFFFFF',
+    tint: '#2962FF',
+    tabIconDefault: '#5F6368',
+    tabIconSelected: '#2962FF',
+    muted: '#9AA0A6',
+    card: '#F1F3F4',
+    border: '#E0E0E0',
   },
   dark: {
-    text: '#ECEDEE',
-    background: '#151718',
-    tint: tintColorDark,
-    icon: '#9BA1A6',
-    tabIconDefault: '#9BA1A6',
-    tabIconSelected: tintColorDark,
+    primary: '#8C9EFF',
+    secondary: '#FFAB40',
+    text: '#E8EAED',
+    background: '#202124',
+    tint: '#8C9EFF',
+    tabIconDefault: '#BDC1C6',
+    tabIconSelected: '#8C9EFF',
+    muted: '#9AA0A6',
+    card: '#303134',
+    border: '#5F6368',
+    icon: '#BDC1C6',
   },
 };
+
