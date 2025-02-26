@@ -78,12 +78,13 @@ export default function TabLayout() {
         }}
       />
       <Tabs.Screen
-        name="library"
+        name="(library)"
         options={{
           title: "Library",
           tabBarIcon: ({ color }) => (
             <Feather name="book-open" size={24} color={color} />
           ),
+          headerShown: false,
         }}
       />
       <Tabs.Screen

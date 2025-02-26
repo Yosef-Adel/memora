@@ -30,7 +30,10 @@ export default function AuthNavigation() {
           // If user is not authenticated and not on auth screen, redirect to login
           console.log("Redirecting to login");
           router.replace("/auth/login");
-        } else if (user && (pathname == "/" || isAuthRoute)) {
+        } else if (
+          user &&
+          ((pathname == "/" && segments.length < 2) || isAuthRoute)
+        ) {
           // If user is authenticated and on auth screen, redirect to home
           console.log("Redirecting to home");
           router.replace("/(tabs)");
