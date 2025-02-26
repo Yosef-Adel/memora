@@ -52,7 +52,7 @@ export default function BooksScreen() {
   const BookCard = ({ index }: BookCardProps) => (
     <TouchableOpacity
       style={[styles.card, { backgroundColor: cardColor, borderColor }]}
-      onPress={() => {}}
+      onPress={() => { }}
     >
       <View style={styles.cardContent}>
         <View
@@ -137,8 +137,8 @@ export default function BooksScreen() {
               {sortBy === "recent"
                 ? "Most Recent"
                 : sortBy === "highlights"
-                ? "Most Highlights"
-                : "Title A-Z"}
+                  ? "Most Highlights"
+                  : "Title A-Z"}
             </Text>
             <Icon name="chevron-down" size={16} color={textColor} />
           </TouchableOpacity>
@@ -160,6 +160,7 @@ export default function BooksScreen() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    paddingTop: 16,
   },
   header: {
     borderBottomWidth: 1,

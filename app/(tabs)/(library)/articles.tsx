@@ -52,7 +52,7 @@ export default function ArticlesScreen() {
   const ArticleCard = ({ index }: ArticleCardProps) => (
     <TouchableOpacity
       style={[styles.card, { backgroundColor: cardColor, borderColor }]}
-      onPress={() => {}}
+      onPress={() => { }}
     >
       <View style={styles.cardContent}>
         <View
@@ -142,8 +142,8 @@ export default function ArticlesScreen() {
               {sortBy === "recent"
                 ? "Most Recent"
                 : sortBy === "highlights"
-                ? "Most Highlights"
-                : "Title A-Z"}
+                  ? "Most Highlights"
+                  : "Title A-Z"}
             </Text>
             <Icon name="chevron-down" size={16} color={textColor} />
           </TouchableOpacity>
@@ -165,6 +165,7 @@ export default function ArticlesScreen() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    paddingTop: 16,
   },
   header: {
     borderBottomWidth: 1,
