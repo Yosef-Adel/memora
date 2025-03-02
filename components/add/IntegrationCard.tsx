@@ -13,6 +13,7 @@ interface IntegrationCardProps {
   borderColor: string;
   cardColor: string;
   primaryColor: string;
+  customSyncButton?: React.ReactNode;
 }
 
 const IntegrationCard: React.FC<IntegrationCardProps> = ({
@@ -26,6 +27,7 @@ const IntegrationCard: React.FC<IntegrationCardProps> = ({
   borderColor,
   cardColor,
   primaryColor,
+  customSyncButton,
 }) => (
   <View
     style={[
@@ -53,14 +55,18 @@ const IntegrationCard: React.FC<IntegrationCardProps> = ({
           <Text style={[styles.lastSync, { color: mutedColor }]}>
             Last synced: {lastSync}
           </Text>
-          <TouchableOpacity
-            style={[styles.syncButton, { backgroundColor: cardColor }]}
-            disabled={disabled}
-          >
-            <Text style={[styles.syncButtonText, { color: textColor }]}>
-              Sync Now
-            </Text>
-          </TouchableOpacity>
+          {customSyncButton ? (
+            customSyncButton
+          ) : (
+            <TouchableOpacity
+              style={[styles.syncButton, { backgroundColor: cardColor }]}
+              disabled={disabled}
+            >
+              <Text style={[styles.syncButtonText, { color: textColor }]}>
+                Sync Now
+              </Text>
+            </TouchableOpacity>
+          )}
         </>
       ) : (
         <TouchableOpacity

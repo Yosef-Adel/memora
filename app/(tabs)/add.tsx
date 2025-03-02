@@ -16,6 +16,7 @@ import ActionButton from "@/components/add/ActionButton";
 import IntegrationCard from "@/components/add/IntegrationCard";
 import TextModal from "@/components/add/TextModal";
 import ScanModal from "@/components/add/ScanModal";
+import KindleIntegration from "@/components/add/KindleIntegration";
 
 const AddHighlightScreen = () => {
   const [textModalVisible, setTextModalVisible] = useState(false);
@@ -92,26 +93,24 @@ const AddHighlightScreen = () => {
             <Text style={[styles.sectionTitle, { color: textColor }]}>
               Integrations
             </Text>
-            <TouchableOpacity style={styles.syncAllButton}>
-              <Icon name="refresh-cw" size={16} color={iconColor} />
-              <Text style={[styles.syncAllText, { color: mutedColor }]}>
-                Sync All
-              </Text>
-            </TouchableOpacity>
+            {/* <TouchableOpacity style={styles.syncAllButton}> */}
+            {/*   <Icon name="refresh-cw" size={16} color={iconColor} /> */}
+            {/*   <Text style={[styles.syncAllText, { color: mutedColor }]}> */}
+            {/*     Sync All */}
+            {/*   </Text> */}
+            {/* </TouchableOpacity> */}
           </View>
 
-          <IntegrationCard
-            title="Kindle"
-            description="Sync your Kindle highlights automatically"
-            icon="book-open"
-            lastSync="2 hours ago"
-            disabled={false}
+          <KindleIntegration
             textColor={textColor}
             mutedColor={mutedColor}
             borderColor={borderColor}
             cardColor={cardColor}
             primaryColor={primaryColor}
+            backgroundColor={backgroundColor}
           />
+
+
           <IntegrationCard
             title="More Apps Coming Soon"
             description="We're working on integrating with more reading apps"
