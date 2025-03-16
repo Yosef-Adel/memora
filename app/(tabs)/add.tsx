@@ -2,12 +2,10 @@ import React, { useState } from "react";
 import {
   View,
   Text,
-  TouchableOpacity,
   ScrollView,
   StyleSheet,
 } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
-import Icon from "react-native-vector-icons/Feather";
 import { useThemeColor } from "@/hooks/useThemeColor";
 import { Colors } from "@/constants/Colors";
 
@@ -109,7 +107,6 @@ const AddHighlightScreen = () => {
             primaryColor={primaryColor}
             backgroundColor={backgroundColor}
           />
-
 
           <IntegrationCard
             title="More Apps Coming Soon"

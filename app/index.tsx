@@ -1,5 +1,4 @@
 import { View, ActivityIndicator, StyleSheet } from "react-native";
-import { useAuth } from "@/contexts/AuthContext";
 
 // This file serves as a loading screen
 export default function Index() {
